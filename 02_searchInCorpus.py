@@ -6,7 +6,9 @@ from lxml import etree
 
 FOLDER = 'Underscored_datas'
 
+
 words_to_find = str(input('Mots à chercher ? [si plusieurs, séparer par un underscore "_"]')).lower().split('_')
+# gestion des différentes orthographes à rechercher
 for x in range(0, len(words_to_find)):
     if "'" in words_to_find[x]:
         words_to_find.append(words_to_find[x].replace("'", ' '))
@@ -29,9 +31,9 @@ for file in os.listdir(FOLDER):
 
     tree = etree.parse(name_of_infile)
 
+    # Récupération des frontières des phrases et décompte des phrases
     for element in tree.xpath('/xmi_XMI/type4_Sentence'):
-        attributes = list(element.attrib)
-        # [ID, sofa, start_char, end_char]
+        attributes = list(element.attrib) # [ID, sofa, start_char, end_char]
         sentences['Sentence_' + str(sentences_comp)] = [element.attrib[x] for x in attributes]
         sentences_comp += 1
 
@@ -44,11 +46,15 @@ for file in os.listdir(FOLDER):
 
             while word + ' ' in document:
 
+                # Récupération des frontières des mots
                 position_start = document.index(word + ' ')
                 position_end = position_start + len(word)
 
+                # Comparaison des frontières des mots à celle des phrases, afin de déterminer la phrase à laquelle appartient le mot
                 for key, value in sentences.items():
                     if position_start >= int(value[2]) and position_end <= int(value[3]):
+
+                        # Récupération des contextes des mots
                         contexte_g = 20
                         try:
                             while document[position_start-contexte_g] != ' ' and document[position_start-contexte_g] != '\n':
@@ -61,6 +67,7 @@ for file in os.listdir(FOLDER):
                                  contexte_d += 1
                         except IndexError:
                             contexte_d = 0
+
                         founded_words.append([word,
                         file,
                         key,
@@ -71,10 +78,11 @@ for file in os.listdir(FOLDER):
                         document[int(value[2]):int(value[3])]])
                 word_compt += 1
 
-                document = document.replace(word + ' ', '#'*len(word) + ' ', 1)
+                document = document.replace(word + ' ', '#'*len(word) + ' ', 1) # permet de chercher le mot suivant si plusieurs occurences du même mot dans une phrase
 
 
 
+# Ecriture dans un fichier CSV ou affichage des résultats
 if csv == True:
     csv_name = 'Searched_words_result_' + str(words_to_find).replace('\'','').replace('\\','').replace(' ','').replace('"', '') + '.csv'
     with open(csv_name, 'w', encoding='utf-8') as csv_file:
