@@ -7,6 +7,13 @@ from lxml import etree
 FOLDER = 'Underscored_datas'
 
 words_to_find = str(input('Mots à chercher ? [si plusieurs, séparer par un underscore "_"]')).lower().split('_')
+for x in range(0, len(words_to_find)):
+    if "'" in words_to_find[x]:
+        words_to_find.append(words_to_find[x].replace("'", ' '))
+    if "-" in words_to_find[x]:
+        words_to_find.append(words_to_find[x].replace("-", ' '))
+    if " " in words_to_find[x]:
+        words_to_find.append(words_to_find[x].replace(" ", '-'))
 print('Les mots à chercher sont :', words_to_find)
 
 csv = input('Sortie csv ? [y] ou [n]').lower()
@@ -66,22 +73,20 @@ for file in os.listdir(FOLDER):
 
                 document = document.replace(word + ' ', '#'*len(word) + ' ', 1)
 
-    #break
+
 
 if csv == True:
-    with open('Searched_words_result.csv', 'w', encoding='utf-8') as csv_file:
+    csv_name = 'Searched_words_result_' + str(words_to_find).replace('\'','').replace('\\','').replace(' ','').replace('"', '') + '.csv'
+    with open(csv_name, 'w', encoding='utf-8') as csv_file:
         csv_file.write('Word\tfile\tSentence_number\tWord_start_position\tWord_end_position\tcontexte_gauche\tcontexte_droit\tSentence\n')
         for line in founded_words:
             csv_file.write(str(line[0]) + '\t' + str(line[1]) + '\t' + str(line[2]) +
             '\t' + str(line[3]) + '\t' + str(line[4]) + '\t' + str(line[5]) +  '\t' + str(line[6]) + '\t' + str(line[7]) +  '\n')
-    print('CSV file created as "Searched_words_result.csv".')
+    print('CSV file created as "' + csv_name + '".')
 else:
     for line in founded_words:
         print(line)
 
-# Il faut une liste de mots à rechercher et
-# partir de cette liste pour faire un t in s et
-# extraire les coordonnées des mots trouvés (document, sentence, start_char, end_char)
 
 end = time.time()
 temps = end-begin
