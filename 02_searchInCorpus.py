@@ -63,7 +63,7 @@ for file in os.listdir(FOLDER):
                             contexte_g = 0
                         contexte_d = 20
                         try:
-                            while document[position_start+contexte_d] != ' ' and document[position_start-contexte_d] != '\n':
+                            while document[position_end+contexte_d] != ' ' and document[position_end+contexte_d] != '\n':
                                  contexte_d += 1
                         except IndexError:
                             contexte_d = 0
