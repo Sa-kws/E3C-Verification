@@ -44,13 +44,13 @@ for file in os.listdir(FOLDER):
                     if position_start >= int(value[2]) and position_end <= int(value[3]):
                         contexte_g = 20
                         try:
-                            while document[position_start-contexte_g] != ' ' or document[position_start-contexte_g] != '\n':
+                            while document[position_start-contexte_g] != ' ' and document[position_start-contexte_g] != '\n':
                                  contexte_g += 1
                         except IndexError:
                             contexte_g = 0
                         contexte_d = 20
                         try:
-                            while document[position_start+contexte_d] != ' ' or document[position_start-contexte_d] != '\n':
+                            while document[position_start+contexte_d] != ' ' and document[position_start-contexte_d] != '\n':
                                  contexte_d += 1
                         except IndexError:
                             contexte_d = 0
@@ -66,7 +66,7 @@ for file in os.listdir(FOLDER):
 
                 document = document.replace(word + ' ', '#'*len(word) + ' ', 1)
 
-    break
+    #break
 
 if csv == True:
     with open('Searched_words_result.csv', 'w', encoding='utf-8') as csv_file:
