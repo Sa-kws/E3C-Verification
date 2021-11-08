@@ -2,6 +2,7 @@ import time
 begin = time.time()
 
 import os
+import re
 from lxml import etree
 
 FOLDER = 'Underscored_datas'
@@ -50,7 +51,7 @@ for file in os.listdir(FOLDER):
                 position_start = document.index(word + ' ')
                 position_end = position_start + len(word)
 
-                # Comparaison des frontières des mots à celle des phrases, afin de déterminer la phrase à laquelle appartient le mot
+                # Comparaison des frontières des mots à celles des phrases, afin de déterminer la phrase à laquelle appartient le mot
                 for key, value in sentences.items():
                     if position_start >= int(value[2]) and position_end <= int(value[3]):
 
@@ -58,13 +59,13 @@ for file in os.listdir(FOLDER):
                         contexte_g = 20
                         try:
                             while document[position_start-contexte_g] != ' ' and document[position_start-contexte_g] != '\n':
-                                 contexte_g += 1
+                                contexte_g += 1
                         except IndexError:
                             contexte_g = 0
                         contexte_d = 20
                         try:
                             while document[position_end+contexte_d] != ' ' and document[position_end+contexte_d] != '\n':
-                                 contexte_d += 1
+                                contexte_d += 1
                         except IndexError:
                             contexte_d = 0
 
@@ -84,16 +85,23 @@ for file in os.listdir(FOLDER):
 
 # Ecriture dans un fichier CSV ou affichage des résultats
 if csv == True:
-    csv_name = 'Searched_words_result_' + str(words_to_find).replace('\'','').replace('\\','').replace(' ','').replace('"', '') + '.csv'
+    csv_name = 'Searched_words_result_' + str(words_to_find).replace('\'','').replace('\\','').replace(' ','').replace('"', '') + '.txt'
     with open(csv_name, 'w', encoding='utf-8') as csv_file:
         csv_file.write('Word\tfile\tSentence_number\tWord_start_position\tWord_end_position\tcontexte_gauche\tcontexte_droit\tSentence\n')
         for line in founded_words:
-            csv_file.write(str(line[0]) + '\t' + str(line[1]) + '\t' + str(line[2]) +
-            '\t' + str(line[3]) + '\t' + str(line[4]) + '\t' + str(line[5]) +  '\t' + str(line[6]) + '\t' + str(line[7]) +  '\n')
+            if '\n' in line[5] or '\n' in line[6]:
+                csv_file.write(str(line[0]) + '\t' + str(line[1]) + '\t' + str(line[2]) +
+                '\t' + str(line[3]) + '\t' + str(line[4]) + '\t' + str('') +  '\t' +
+                str('') + '\t' + str(line[7]) +  '\n')
+            else:
+                csv_file.write(str(line[0]) + '\t' + str(line[1]) + '\t' + str(line[2]) +
+                '\t' + str(line[3]) + '\t' + str(line[4]) + '\t' + str(line[5]) +  '\t' +
+                str(line[6]) + '\t' + str(line[7]) +  '\n')
     print('CSV file created as "' + csv_name + '".')
 else:
     for line in founded_words:
-        print(line)
+        if '\n' in line[5] or '\n' in line[6]:
+            print(line[0])
 
 
 end = time.time()
