@@ -91,8 +91,8 @@ if csv == True:
         for line in founded_words:
             if '\n' in line[5] or '\n' in line[6]:
                 csv_file.write(str(line[0]) + '\t' + str(line[1]) + '\t' + str(line[2]) +
-                '\t' + str(line[3]) + '\t' + str(line[4]) + '\t' + str('') +  '\t' +
-                str('') + '\t' + str(line[7]) +  '\n')
+                '\t' + str(line[3]) + '\t' + str(line[4]) + '\t' + str('Refer to sentence') +  '\t' +
+                str('Refer to sentence') + '\t' + str(line[7]) +  '\n')
             else:
                 csv_file.write(str(line[0]) + '\t' + str(line[1]) + '\t' + str(line[2]) +
                 '\t' + str(line[3]) + '\t' + str(line[4]) + '\t' + str(line[5]) +  '\t' +
