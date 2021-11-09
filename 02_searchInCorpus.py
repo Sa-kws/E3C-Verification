@@ -28,7 +28,7 @@ replacement = {
 
 for element_to_replace, replacement_element in replacement.items():
     if element_to_replace != "'":
-        words_to_find = extendResearch(words_to_find, element_to_replace, replacement_element)
+        words_to_find = extendResearch(words_to_find, element_to_replace, replacement_element + ' ')
     else:
         for x in replacement_element:
             words_to_find = extendResearch(words_to_find, element_to_replace, x)
@@ -55,18 +55,22 @@ for file in os.listdir(FOLDER):
         sentences['Sentence_' + str(sentences_comp)] = [element.attrib[x] for x in attributes]
         sentences_comp += 1
 
+    """
+    AJOUTER DICO AVEC ANNOTATION EVENTTYPE
+    Tag : si c'est événement, acteur...
+    Tag : TIMEX3 ACTO CLEANEDENTITY
+    Attribut :
+    """
+
 
     for element in tree.xpath('/xmi_XMI/cas_Sofa'):
         for word in words_to_find:
             document = element.attrib['sofaString'].lower()
 
-
-
-
-            while word + ' ' in document:
+            while word in document: # or word[-1] == "'":
 
                 # Récupération des frontières des mots
-                position_start = document.index(word + ' ')
+                position_start = document.index(word)
                 position_end = position_start + len(word)
 
                 # Comparaison des frontières des mots à celles des phrases, afin de déterminer la phrase à laquelle appartient le mot
@@ -96,7 +100,7 @@ for file in os.listdir(FOLDER):
                         document[position_start:position_end+contexte_d],
                         document[int(value[2]):int(value[3])]])
 
-                document = document.replace(word + ' ', '#'*len(word) + ' ', 1) # permet de chercher le mot suivant si plusieurs occurences du même mot dans une phrase
+                document = document.replace(word, '#'*len(word) + ' ', 1) # permet de chercher le mot suivant si plusieurs occurences du même mot dans une phrase
 
 
 
@@ -108,8 +112,8 @@ if csv == True:
         for line in founded_words:
             if '\n' in line[5] or '\n' in line[6]:
                 csv_file.write(str(line[0]) + '\t' + str(line[1]) + '\t' + str(line[2]) +
-                '\t' + str(line[3]) + '\t' + str(line[4]) + '\t' + str('Refer to sentence') +  '\t' +
-                str('Refer to sentence') + '\t' + str(line[7]) +  '\n')
+                '\t' + str(line[3]) + '\t' + str(line[4]) + '\t' + str(line[5]).replace('\n','') +  '\t' +
+                str(line[6]).replace('\n','') + '\t' + str(line[7]).replace('\n','') +  '\n')
             else:
                 csv_file.write(str(line[0]) + '\t' + str(line[1]) + '\t' + str(line[2]) +
                 '\t' + str(line[3]) + '\t' + str(line[4]) + '\t' + str(line[5]) +  '\t' +
