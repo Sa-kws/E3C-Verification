@@ -9,21 +9,38 @@ FOLDER = 'Underscored_datas'
 
 
 words_to_find = str(input('Mots à chercher ? [si plusieurs, séparer par un underscore "_"]')).lower().split('_')
+
 # gestion des différentes orthographes à rechercher
-for x in range(0, len(words_to_find)):
-    if "'" in words_to_find[x]:
-        words_to_find.append(words_to_find[x].replace("'", ' '))
-    if "-" in words_to_find[x]:
-        words_to_find.append(words_to_find[x].replace("-", ' '))
-    if " " in words_to_find[x]:
-        words_to_find.append(words_to_find[x].replace(" ", '-'))
+
+def extendResearch(input_list, element_to_search, replacement_element):
+    for x in range(0, len(input_list)):
+        if element_to_search in input_list[x]:
+            to_append = input_list[x].replace(element_to_search, replacement_element)
+            if to_append not in input_list:
+                input_list.append(to_append)
+    return input_list
+
+replacement = {
+                '-': ' ',
+                ' ': '-',
+                "'": ('e', 'u')
+                }
+
+for element_to_replace, replacement_element in replacement.items():
+    if element_to_replace != "'":
+        words_to_find = extendResearch(words_to_find, element_to_replace, replacement_element)
+    else:
+        for x in replacement_element:
+            words_to_find = extendResearch(words_to_find, element_to_replace, x)
+
 print('Les mots à chercher sont :', words_to_find)
 
 csv = input('Sortie csv ? [y] ou [n]').lower()
-csv = True if csv == 'y' else False
+csv = True if csv == 'y' or csv == '[y]' else False
 
 
 founded_words = []
+number_regex = r'[0-9]*'
 
 for file in os.listdir(FOLDER):
     name_of_infile = FOLDER + '/' + file
@@ -44,6 +61,8 @@ for file in os.listdir(FOLDER):
             document = element.attrib['sofaString'].lower()
 
             word_compt = 1
+
+
 
             while word + ' ' in document:
 
@@ -85,7 +104,7 @@ for file in os.listdir(FOLDER):
 
 # Ecriture dans un fichier CSV ou affichage des résultats
 if csv == True:
-    csv_name = 'Searched_words_result_' + str(words_to_find).replace('\'','').replace('\\','').replace(' ','').replace('"', '') + '.txt'
+    csv_name = 'Searched_words_result_' + str(words_to_find).replace('\'','').replace('\\','').replace(' ','-').replace('"', '') + '.txt'
     with open(csv_name, 'w', encoding='utf-8') as csv_file:
         csv_file.write('Word\tfile\tSentence_number\tWord_start_position\tWord_end_position\tcontexte_gauche\tcontexte_droit\tSentence\n')
         for line in founded_words:
@@ -100,8 +119,7 @@ if csv == True:
     print('CSV file created as "' + csv_name + '".')
 else:
     for line in founded_words:
-        if '\n' in line[5] or '\n' in line[6]:
-            print(line[0])
+        print(line)
 
 
 end = time.time()
