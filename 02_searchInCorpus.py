@@ -60,7 +60,6 @@ for file in os.listdir(FOLDER):
         for word in words_to_find:
             document = element.attrib['sofaString'].lower()
 
-            word_compt = 1
 
 
 
@@ -96,7 +95,6 @@ for file in os.listdir(FOLDER):
                         document[position_start-contexte_g:position_end],
                         document[position_start:position_end+contexte_d],
                         document[int(value[2]):int(value[3])]])
-                word_compt += 1
 
                 document = document.replace(word + ' ', '#'*len(word) + ' ', 1) # permet de chercher le mot suivant si plusieurs occurences du même mot dans une phrase
 
