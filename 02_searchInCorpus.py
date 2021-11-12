@@ -50,8 +50,9 @@ def fillWithAttibutesValues(attributes_list, storage_variable, storage_variable_
         for x in range(0, annotation_quantity-2):
             temp.append('No_annotation')
     else:
-        del temp[-1]
-        del temp[-1]
+        # suppression des éléments ajoutés à la liste des attributs à chercher pour le repérage
+        del temp[-1] # end
+        del temp[-1] # begin
 
     return storage_variable
 
