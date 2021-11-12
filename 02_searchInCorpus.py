@@ -162,8 +162,6 @@ for file in os.listdir(FOLDER):
                 document = document.replace(word, '#'*len(word), 1) # permet de chercher le mot suivant si plusieurs occurences du même mot dans une phrase
                 founded_words.append(temp)
                 print(167, len(temp))
-#    if founded_words != []:
-    #    break
 
 # Ecriture dans un fichier CSV ou affichage des résultats
 if csv == True:
