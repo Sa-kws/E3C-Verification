@@ -120,11 +120,18 @@ for file in os.listdir(FOLDER):
         for word in words_to_find:
             document = element.attrib['sofaString'].lower()
 
-            while word in document: # or word[-1] == "'":
+            if re.search("[0-9]+", word):
+                word = re.sub("([0-9]+)","[0-9]+",word)
+
+            while re.search(r""+word, document):
+            #while word in document: # or word[-1] == "'":
                 temp = []
+
+                word2 = re.findall(r""+word, document)[0]
+
                 ### Récupération des frontières des mots
-                position_start = document.index(word)
-                position_end = position_start + len(word)
+                position_start = document.index(word2)
+                position_end = position_start + len(word2)
 
                 ### Comparaison des frontières des mots à celles des phrases,
                 #   afin de déterminer la phrase à laquelle appartient le mot
@@ -145,7 +152,7 @@ for file in os.listdir(FOLDER):
                         except IndexError:
                             contexte_d = 0
 
-                        temp.append(word)
+                        temp.append(word2)
                         temp.append(file)
                         temp.append(key)
                         temp.append(position_start)
@@ -159,9 +166,8 @@ for file in os.listdir(FOLDER):
                 temp = fillWithAttibutesValues(CLINENTITY, temp, len(temp) + len(CLINENTITY_att), len(CLINENTITY_att))
                 temp = fillWithAttibutesValues(ACTOR, temp, len(temp) + len(ACTOR_att), len(ACTOR_att))
 
-                document = document.replace(word, '#'*len(word), 1) # permet de chercher le mot suivant si plusieurs occurences du même mot dans une phrase
+                document = document.replace(word2, '#'*len(word2), 1) # permet de chercher le mot suivant si plusieurs occurences du même mot dans une phrase
                 founded_words.append(temp)
-                print(167, len(temp))
 
 # Ecriture dans un fichier CSV ou affichage des résultats
 if csv == True:
