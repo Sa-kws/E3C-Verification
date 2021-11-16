@@ -6,7 +6,7 @@
 
 ##### EXECUTION ORDER : 
 
-1. _01_fixXML.py_
+1. _01_fixXML.py_ (one time only)
 2. _02_searchInCorpus.py_
 
 :warning: It is important to respect the execution order to make the program work. :warning:
@@ -21,8 +21,8 @@
 - Script 1 output
 	- Type the name of the folder containing the modified E3C xml files you want to treat at **line 59**.
 	- If no modifications has been made in script 1 and if your using Windows, the folder should be the right one.
-- Words to search
-	- Type the words you want to search separated by an underscore ('_'), if one word only, you can type the word without underscore.
+- Expression to search
+	- Type the expression you want to search separated by an underscore ('_'), if one word only, you can type the word without underscore.
 	- The words are requested by the program during its execution, you don't have to put them in a variable.
 
 ### FUNCTIONALITIES :
