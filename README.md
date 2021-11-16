@@ -4,7 +4,7 @@
 
 ** REQUIREMENT PACKAGES : NONE **
 
-* ##### EXECUTION ORDER : *
+##### EXECUTION ORDER :
 
 1. 01_fixXML.py
 2. 02_searchInCorpus.py
