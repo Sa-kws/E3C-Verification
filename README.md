@@ -1,10 +1,10 @@
 # E3C-Verification
 
-### PYTHON VERSION : Python 3.9.8
+** PYTHON VERSION : Python 3.9.8 **
 
-### REQUIREMENT PACKAGES : NONE
+** REQUIREMENT PACKAGES : NONE **
 
-### EXECUTION ORDER : 
+* ##### EXECUTION ORDER : *
 
 1. 01_fixXML.py
 2. 02_searchInCorpus.py
