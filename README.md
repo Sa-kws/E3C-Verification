@@ -13,11 +13,11 @@
 
 ### INPUT : 
 
-- Script 01 : 
+###### _01_fixXML.py_
 	- E3C xml files
 		- Type the name of the folder containing the E3C xml files you want to treat at **line 7**.
 		- You can modify the name of the folder in _datas_ or modify the name of the folder in the script.
-- Script 02 : 
+###### _02_searchInCorpus.py_
 	- Script 1 output
 		- Type the name of the folder containing the modified E3C xml files you want to treat at **line 59**.
 		- If no modifications has been made in sript 1 and if your using Windows, the folder should be the right one.
@@ -27,10 +27,10 @@
 
 ### FUNCTIONALITIES :
 
-- Script 01
+###### _01_fixXML.py_
 	- Modifying E3C xml files
 	- Store the modification in a new folder.
-- Script 02 : 
+###### _02_searchInCorpus.py_
 	- Searching words choosen by users.
 	- Searching annotations associated to the founded occurences.
 	- Writing the results of the search in a csv files.
