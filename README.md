@@ -6,8 +6,8 @@ __PYTHON VERSION : Python 3.9.8__
 
 ##### EXECUTION ORDER :
 
-2. 01_fixXML.py
-1. 02_searchInCorpus.py
+1. 01_fixXML.py
+2. 02_searchInCorpus.py
 
 ### INPUT : 
 
