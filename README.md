@@ -15,8 +15,8 @@
 
 - Script 01 : 
 	- E3C xml files
-		- Type the name of the folder containing the E3C xml files you want to treat at **line 7**. 
-\ 
+		- Type the name of the folder containing the E3C xml files you want to treat at **line 7**.
+		- You can modify the name of the folder in _datas_ or modify the name of the folder in the script.
 - Script 02 : 
 	- Script 1 output
 		- Type the name of the folder containing the modified E3C xml files you want to treat at **line 59**.
@@ -30,10 +30,34 @@
 - Script 01
 	- Modifying E3C xml files
 	- Store the modification in a new folder.
-\
 - Script 02 : 
 	- Searching words choosen by users.
 	- Searching annotations associated to the founded occurences.
 	- Writing the results of the search in a csv files.
 
 ### OUTPUT
+
+###### _01_fixXML.py_
+
+- New folder named _Underscored_datas_
+
+###### _02_searchInCorpus.py_
+
+- csv file containing :
+	- Word : each founded occurences will appear in this column
+	- file	 : indicates the file where the occurences has been founded
+	- Sentence_number : indicates the sentence number where the occurences has been founded
+	- Word_start_position : indicates the index where founded occurences strats in the file
+	- Word_end_position	 : indicates the index where founded occurences ends in the file
+	- contexte_gauche	: indicates what's before the founded occurences
+	- contexte_droit : indicates what's after the founded occurences
+	- Sentence : indicates the sentence where the occurences is in. 
+	- OTHER ANNOTATIONS FROM THE XML FILE : 
+		- EVENT_eventType
+		- EVENT_polarity
+		- EVENT_contextualModality
+		- EVENT_docTimeRel
+		- TIMEX3_timex3Class
+		- TIMEX3_value
+		- CLINENTITY_EntityID
+		- ACTOR_role
