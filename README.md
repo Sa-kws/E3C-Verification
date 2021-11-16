@@ -12,6 +12,7 @@ __PYTHON VERSION : Python 3.9.8__
 ### INPUT : 
 
 - Script 01 : E3C xml files
+  - sous emoibkjezfhjiezh
 - Script 02 : Script 1 output
 
 
