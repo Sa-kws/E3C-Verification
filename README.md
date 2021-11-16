@@ -60,5 +60,6 @@ csv file containing :
 	- TIMEX3_timex3Class
 	- TIMEX3_value
 	- CLINENTITY_EntityID
-	- ACTOR_role \
+	- ACTOR_role
+
 ⚠️ The csv separator is **tabulation** and not commas ⚠️
