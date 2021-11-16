@@ -1,37 +1,31 @@
-# E3C-Verification
+# text_classification
+Classification d'énoncés en plusieurs catégories
 
-**PYTHON VERSION : Python 3.9.8**
+Avant de mettre en place les paramètres d'apprentissage ainsi que lancer l'apprentissage, il faut récupérer le bon jeu de données. Le code *'GetDomainActivities'* est donc à executer en premier, puis on pourra ensuite executer *'SetFeatures_MachineLearning'*.
 
-**REQUIREMENT PACKAGES : NONE**
+## GetDomainActivities :
+Parcours du dossier contenant les trois fichiers CSV composant le corpus. Pour chaque fichier, si la ligne contient *'domainActivities'* (colonne 1 : Dimension), alors on l'ajoute à la liste qu'on copie ensuite dans un nouveau fichier. \
+/!\ Le nouveau fichier est écrit dans un répertoire séparé, il est donc important de créer se répertoire avant de lancer le code /!\\ \
+/!\ Nom du répertoire contenant les _données initiales_ : dataset_initial /!\\ \
+/!\ Nom du répertoire contenant les _nouvelles données_ : dataset_DA /!\
 
-##### EXECUTION ORDER : 
+## SetFeatures_MachineLearning :
 
-1. _01_fixXML.py_
-2. _02_searchInCorpus.py_
+### Outils :
+Scikit-Learn\
+Pandas\
+SpaCy\
+Expression régulière (module re)\
+Glob
 
-:warning: It is important to respect the execution order to make the program work. :warning:
+Mise en place des features : 
+  - Taille de l'énoncé 
+  - Présence de ponctuation spécifique
+  - Forme de l'énoncé (Bag of Words)
+  - Présence de caractère numérique
+  - Part of Speech (Bag of Words)
+  - Présence de proposition relatives
+  - Lemme (Bag of Words)
 
-### INPUT : 
-
-- Script 01 : 
-	- E3C xml files
-		- Type the name of the folder containing the E3C xml files you want to treat at **line 7**. \\
-- Script 02 : 
-	- Script 1 output
-		- Type the name of the folder containing the modified E3C xml files you want to treat at **line 59**.
-		- If no modifications has been made in sript 1 and if your using Windows, the folder should be the right one.
-	- Words to search
-		- Type the words you want to search separated by an underscore ('_'), if one word only, you can type the word without underscore.
-		- The words are requested by the program during its execution, you don't have to put them in a variable.
-
-### FUNCTIONALITIES :
-
-- Script 01
-	- Modifying E3C xml files
-	- Store the modification in a new folder. \\
-- Script 02 : 
-	- Searching words choosen by users.
-	- Searching annotations associated to the founded occurences.
-	- Writing the results of the search in a csv files.
-
-### OUTPUT
+## Machine Learning :
+Algorithme : Random Forest
