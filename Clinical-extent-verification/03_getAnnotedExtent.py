@@ -30,6 +30,7 @@ for file in os.listdir(FOLDER):
             CLINENTITY_extent[dictionnary_index] = [int(element.attrib['begin']), int(element.attrib['end']), element.attrib['entityID']]
         except KeyError:
             CLINENTITY_extent[dictionnary_index] = [int(element.attrib['begin']), int(element.attrib['end']), 'NO_entityID']
+            print(file, document[int(element.attrib['begin']):int(element.attrib['end'])])
 
 
     #for element in tree.xpath(sentence_path):
