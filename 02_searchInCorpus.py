@@ -56,7 +56,7 @@ def fillWithAttibutesValues(attributes_list, storage_variable, storage_variable_
 
     return storage_variable
 
-FOLDER = 'Underscored_datas'
+FOLDER = 'Underscored_spanish'
 try:
     os.mkdir('Searched_results')
 except FileExistsError:
@@ -193,11 +193,10 @@ if csv == True:
         for line in founded_words:
             if [line[1], line[2], line[3]] not in contexte_stockage:
                 contexte_stockage.append([line[1], line[2], line[3]])
-                lignes.append(str(line[0].rstrip()) + '\t' + str(line[1]) + '\t' + str(line[2]) + '\t' + str(line[3]) + '\t' + str(line[4]) +
-                '\t' + str(line[5]).replace('\n','') + '\t' + str(line[6]).replace('\n','') + '\t' + str(line[7]).replace('\n','') +
-                '\t' +str(line[8]) + '\t' + str(line[9]) + '\t' + str(line[10]) + '\t' + str(line[11]) + '\t' +
-                str(line[12]) + '\t' + str(line[13]) + '\t' +
-                str(line[14]) + '\t' + line[15] + '\n')
+                to_append = str(line[0].rstrip()) + '\t' + str(line[1]) + '\t' + str(line[2]) + '\t' + str(line[3]) + '\t' + str(line[4]) + '\t' + str(line[5]).replace("\n","") + '\t' + str(line[6]).replace('\n','') + '\t' + str(line[7]).replace('\n','') + '\t' +str(line[8]) + '\t' + str(line[9]) + '\t' + str(line[10]) + '\t' + str(line[11]) + '\t' + str(line[12]) + '\t' + str(line[13]) + '\t' + str(line[14]) + '\t' + line[15]
+                to_append = re.sub(r'[\n\r\f\v]', '', to_append)
+                to_append += '\n'
+                lignes.append(to_append)
 
         for ligne in lignes:
             csv_file.write(ligne)
