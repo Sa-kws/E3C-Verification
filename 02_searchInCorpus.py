@@ -142,7 +142,8 @@ for file in os.listdir(FOLDER):
                 temp = []
 
                 word2 = re.findall(r""+word, document)[0]
-
+                word2 = word2.replace('.', '')
+                word2 = word2.replace(',', '')
                 ### Récupération des frontières des mots
                 position_start = document.index(word2)
                 position_end = position_start + len(word2)-1
@@ -192,7 +193,7 @@ if csv == True:
         for line in founded_words:
             if [line[1], line[2], line[3]] not in contexte_stockage:
                 contexte_stockage.append([line[1], line[2], line[3]])
-                lignes.append(str(line[0]) + '\t' + str(line[1]) + '\t' + str(line[2]) + '\t' + str(line[3]) + '\t' + str(line[4]) +
+                lignes.append(str(line[0].rstrip()) + '\t' + str(line[1]) + '\t' + str(line[2]) + '\t' + str(line[3]) + '\t' + str(line[4]) +
                 '\t' + str(line[5]).replace('\n','') + '\t' + str(line[6]).replace('\n','') + '\t' + str(line[7]).replace('\n','') +
                 '\t' +str(line[8]) + '\t' + str(line[9]) + '\t' + str(line[10]) + '\t' + str(line[11]) + '\t' +
                 str(line[12]) + '\t' + str(line[13]) + '\t' +
