@@ -49,16 +49,31 @@ db = xl.Database()
 
 for ligne in range(0,len(sorted_list)):
 # add a blank worksheet to the db
-    db.add_ws(ws=sorted_list[ligne][0].split('\t')[0])
+    pluriel = False
+    for i in sorted_list[ligne]:
+        i = i.split('\t')[0]
+        if i[-1] == 's':
+            pluriel = True
+        if pluriel == True:
+            break
+    #if sorted_list[ligne][0].split('\t')[0][-1] == 's':
+    if pluriel == True:
+        if sorted_list[ligne][0].split('\t')[0][-1] == 's':
+            name = ('_' + sorted_list[ligne][0].split('\t')[0][0:-1] + '.s_').replace(' ', '-')
+        else:
+            name = ('_' + sorted_list[ligne][0].split('\t')[0] + '.s_').replace(' ', '-')
+    else:
+        name = ('_' + sorted_list[ligne][0].split('\t')[0] + '_').replace(' ', '-')
+    db.add_ws(ws=name)
 
 # loop to add our data to the worksheet
     for row_id, data in enumerate(sorted_list[ligne], start=1):
         data = data.split('\t')
         for x, y in zip(range(0, len(data)), data):
-            db.ws(ws=sorted_list[ligne][0].split('\t')[0]).update_index(row=row_id, col=x+1, val=y)
+            db.ws(ws=name).update_index(row=row_id, col=x+1, val=y)
 
 # write out the db
-#xl.writexl(db=db, fn="Corrected_CLINENTITY-VerificationsXXXXXX.xlsx")
+#xl.writexl(db=db, fn="Corrected_CLINENTITY-Verifications.xlsx")
 
 end = time.time()
 temps = end-begin
